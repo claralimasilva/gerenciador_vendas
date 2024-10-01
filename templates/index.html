@@ -4,17 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Produtos</title>
-    <!-- Incluindo o arquivo CSS personalizado -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <!-- Incluindo o Bootstrap, Font Awesome, e Google Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet"> <!-- Fonte estilizada -->
+    <style>
+        body {
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container, .product-list {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+            display: none; /* Ocultar a tela inicial no início */
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #74ebd5;
+            color: white;
+            font-size: 1.1rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #56c8ba;
+        }
+        .table {
+            margin-top: 1.5rem;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        thead {
+            background-color: #74ebd5;
+            color: white;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Estilo para a mensagem de boas-vindas */
+        .welcome-message {
+            font-size: 3rem;
+            color: #333;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1s ease, transform 1s ease;
+            font-family: 'Lobster', cursive; /* Fonte estilizada */
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .welcome-message.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .welcome-message.zoom-out {
+            transform: scale(2);
+            opacity: 0;
+            transition: transform 1s ease, opacity 1s ease;
+        }
+        .welcome-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            position: absolute;
+            z-index: 10; /* Mantém a mensagem acima da lista de produtos */
+            width: 100%;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Mensagem de boas-vindas -->
+    <div class="welcome-container">
+        <div id="welcomeMessage" class="welcome-message">Seja Bem-Vindo, <span id="username"></span>!</div>
+    </div>
+
+    <!-- Tela inicial com a lista de produtos -->
+    <div id="productList" class="product-list">
         <h1 class="my-4">Lista de Produtos</h1>
 
         <!-- Botão para ir à página de gerenciamento de produtos -->
-        <div class="mb-4">
+        <div class="mb-4 text-center">
             <a href="/gerenciar_produtos" class="btn btn-primary">Gerenciar Produtos</a>
         </div>
 
@@ -41,6 +141,33 @@
             </tbody>
         </table>
     </div>
+
+    <script>
+        // Função para exibir a mensagem de boas-vindas e depois a lista de produtos
+        document.addEventListener("DOMContentLoaded", function() {
+            // Substitua 'username' pelo nome do usuário logado dinamicamente
+            const username = "{{ nomedousuariodologin }}"; // Ou pegue de um backend dinâmico
+            document.getElementById("username").textContent = username;
+
+            // Exibir a mensagem com efeito
+            const welcomeMessage = document.getElementById("welcomeMessage");
+            const productList = document.getElementById("productList");
+
+            setTimeout(function() {
+                welcomeMessage.classList.add("show");
+            }, 500); // Exibe a mensagem após 0,5 segundo
+
+            // Após 2,5 segundos, aplicar o efeito de zoom e exibir a lista de produtos
+            setTimeout(function() {
+                welcomeMessage.classList.add("zoom-out"); // Aplica o efeito de zoom-out
+                setTimeout(function() {
+                    welcomeMessage.style.display = 'none'; // Esconde a mensagem de boas-vindas
+                    productList.style.display = 'block'; // Exibe a lista de produtos
+                    productList.style.opacity = 1; // Anima a opacidade para fade-in
+                }, 1000); // Aguardar o fim da animação de zoom (1 segundo)
+            }, 2500); // Tempo total para iniciar o efeito de zoom: 2,5 segundos
+        });
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
