@@ -12,55 +12,39 @@
     <div class="container">
         <h1 class="my-4">Análise de Vendas</h1>
 
-        <!-- Botão para exibir o gráfico na página -->
-        <div class="mb-4">
-            <button id="gerarRelatorioBtn" class="btn btn-secondary">Exibir Gráfico de Vendas</button>
-        </div>
-
-        <!-- Exibindo o gráfico gerado com javascript --> 
-        <h2 class="my-4">Gráfico de Vendas</h2>
-        <img id="graficoVendas" src="" alt="Gráfico de Vendas" class="img-fluid" style="display:none;"/>
-
-        <!-- Botão para baixar o gráfico em PDF (aparece abaixo do gráfico) -->
-        <div class="mt-4" id="baixarBtn" style="display:none;">
-            <a href="/baixar_grafico" class="btn btn-primary">Baixar Relatório em PDF</a>
-        </div>
-
         <!-- Tabela de Produtos Cadastrados -->
         <h2 class="my-4">Produtos Vendidos</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Nome</th>
-                    <th>Quantidade Vendida</th>
+                    <th>Produtos Vendidos (Quantidade)</th>
+                    <th>Lucro Bruto</th>
+                    <th>Lucro Líquido</th>
                 </tr>
             </thead>
             <tbody>
                 {% for produto in produtos %}
                 <tr>
-                    <td>{{ produto.nome }}</td>
-                    <td>{{ produto.quantidade }}</td>
+                    <td>{{ produto.nome }} ({{ produto.quantidade }})</td>
+                    <td>R$ {{ produto.quantidade * produto.preco }}</td>
+                    <td>R$ {{ (produto.preco - produto.custo) * produto.quantidade }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+
+        <!-- Exibindo o gráfico gerado automaticamente -->
+        <h2 class="my-4">Gráfico de Vendas</h2>
+        <img id="graficoVendas" src="/exibir_grafico" alt="Gráfico de Vendas" class="img-fluid"/>
+
+        <!-- Botão para baixar o gráfico em PDF (aparece abaixo do gráfico) -->
+        <div class="mt-4">
+            <a href="/baixar_grafico" class="btn btn-primary">Baixar Relatório em PDF</a>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    <script>
-        // Função que será executada ao clicar no botão "Exibir Gráfico de Vendas"
-        document.getElementById("gerarRelatorioBtn").addEventListener("click", function() {
-            var img = document.getElementById("graficoVendas");  // Referência ao elemento <img> que mostra o gráfico
-            img.src = "/exibir_grafico";  // Define o src da imagem para carregar o gráfico
-            img.style.display = "block";  // Remove o estilo display: none; para mostrar a imagem
-
-            // Exibe o botão de baixar o PDF após o gráfico ser mostrado
-            var baixarBtn = document.getElementById("baixarBtn");  // Referência ao botão de baixar
-            baixarBtn.style.display = "block";  // Remove o display: none; do botão para mostrar o botão
-        });
-    </script>
 </body>
 </html>
