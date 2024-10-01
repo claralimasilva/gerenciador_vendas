@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Produto</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Incluindo o arquivo CSS personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -13,29 +16,30 @@
         <!-- Formulário para editar o produto -->
         <form action="/editar_produto/{{ produto[0] }}" method="POST">
             <div class="form-group">
-                <label for="nome">Nome do Produto</label>
+                <label for="nome"><i class="fas fa-box"></i> Nome do Produto</label>
                 <input type="text" class="form-control" name="nome" value="{{ produto[1] }}" required>
             </div>
             <div class="form-group">
-                <label for="preco">Preço de Venda</label>
+                <label for="preco"><i class="fas fa-dollar-sign"></i> Preço de Venda</label>
                 <input type="number" class="form-control" name="preco" value="{{ produto[2] }}" step="0.01" required>
             </div>
             <div class="form-group">
-                <label for="estoque">Estoque</label>
+                <label for="estoque"><i class="fas fa-cubes"></i> Estoque</label>
                 <input type="number" class="form-control" name="estoque" value="{{ produto[3] }}" required>
             </div>
             <div class="form-group">
-                <label for="custo">Custo do Produto</label>
+                <label for="custo"><i class="fas fa-tags"></i> Custo do Produto</label>
                 <input type="number" class="form-control" name="custo" value="{{ produto[4] }}" step="0.01" required>
             </div>
             <button type="submit" class="btn btn-primary">Salvar Alterações</button>
         </form>
-
-        <a href="/gerenciar_produtos" class="btn btn-secondary mt-3">Cancelar</a>
+        
+        <!-- Botão de Cancelar -->
+        <div class="mt-3">
+            <a href="/gerenciar_produtos" class="btn btn-secondary">Cancelar</a>
+        </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 </body>
 </html>

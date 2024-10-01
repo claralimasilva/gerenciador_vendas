@@ -3,31 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Lista de Produtos</title>
+    <!-- Incluindo o arquivo CSS personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <h1 class="my-4">Lista de Produtos</h1>
-        
-        <!-- Botão de Logout -->
-        <div class="mb-4">
-            <a href="/logout" class="btn btn-danger">Sair</a>
-        </div>
 
         <!-- Botão para ir à página de gerenciamento de produtos -->
         <div class="mb-4">
             <a href="/gerenciar_produtos" class="btn btn-primary">Gerenciar Produtos</a>
         </div>
 
-        <!-- Lista de Produtos -->
-        <h2>Produtos Disponíveis</h2>
+        <!-- Tabela de Produtos Cadastrados -->
+        <h2 class="my-4">Produtos Disponíveis</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Nome</th>
-                    <th>Preço</th>
+                    <th>Preço de Venda</th>
                     <th>Estoque</th>
+                    <th>Custo do Produto</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +35,7 @@
                     <td>{{ produto[1] }}</td>
                     <td>R$ {{ produto[2] }}</td>
                     <td>{{ produto[3] }}</td>
+                    <td>R$ {{ produto[4] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
