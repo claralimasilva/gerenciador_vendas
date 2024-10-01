@@ -104,10 +104,14 @@
     </style>
 </head>
 <body>
+
+    <!-- Verifica se a mensagem de boas-vindas deve ser exibida -->
+    {% if show_welcome %}
     <!-- Mensagem de boas-vindas -->
     <div class="welcome-container">
         <div id="welcomeMessage" class="welcome-message">Seja Bem-Vindo, <span id="username"></span>!</div>
     </div>
+    {% endif %}
 
     <!-- Tela inicial com a lista de produtos -->
     <div id="productList" class="product-list">
@@ -145,27 +149,30 @@
     <script>
         // Função para exibir a mensagem de boas-vindas e depois a lista de produtos
         document.addEventListener("DOMContentLoaded", function() {
-            // Substitua 'username' pelo nome do usuário logado dinamicamente
-            const username = "{{ nomedousuariodologin }}"; // Ou pegue de um backend dinâmico
+            const username = "{{ nomedousuariodologin }}";
             document.getElementById("username").textContent = username;
 
-            // Exibir a mensagem com efeito
             const welcomeMessage = document.getElementById("welcomeMessage");
             const productList = document.getElementById("productList");
 
-            setTimeout(function() {
-                welcomeMessage.classList.add("show");
-            }, 500); // Exibe a mensagem após 0,5 segundo
-
-            // Após 2,5 segundos, aplicar o efeito de zoom e exibir a lista de produtos
-            setTimeout(function() {
-                welcomeMessage.classList.add("zoom-out"); // Aplica o efeito de zoom-out
+            if (welcomeMessage) {  // Se a mensagem de boas-vindas existir, exibir e fazer a transição
                 setTimeout(function() {
-                    welcomeMessage.style.display = 'none'; // Esconde a mensagem de boas-vindas
-                    productList.style.display = 'block'; // Exibe a lista de produtos
-                    productList.style.opacity = 1; // Anima a opacidade para fade-in
-                }, 1000); // Aguardar o fim da animação de zoom (1 segundo)
-            }, 2500); // Tempo total para iniciar o efeito de zoom: 2,5 segundos
+                    welcomeMessage.classList.add("show");
+                }, 500);
+
+                setTimeout(function() {
+                    welcomeMessage.classList.add("zoom-out");
+                    setTimeout(function() {
+                        welcomeMessage.style.display = 'none';
+                        productList.style.display = 'block';
+                        productList.style.opacity = 1;
+                    }, 1000);
+                }, 2500);
+            } else {
+                // Se a mensagem de boas-vindas não for exibida, exibir a tela de produtos imediatamente
+                productList.style.display = 'block';
+                productList.style.opacity = 1;
+            }
         });
     </script>
 
