@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Lista de Produtos</h1>
+        
+        <!-- Botão de Logout -->
+        <div class="mb-4">
+            <a href="/logout" class="btn btn-danger">Sair</a>
+        </div>
+
+        <!-- Botão para ir à página de gerenciamento de produtos -->
+        <div class="mb-4">
+            <a href="/gerenciar_produtos" class="btn btn-primary">Gerenciar Produtos</a>
+        </div>
+
+        <!-- Lista de Produtos -->
+        <h2>Produtos Disponíveis</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos %}
+                <tr>
+                    <td>{{ produto[1] }}</td>
+                    <td>R$ {{ produto[2] }}</td>
+                    <td>{{ produto[3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

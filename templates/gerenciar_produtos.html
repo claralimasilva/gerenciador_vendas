@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Produtos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Gerenciamento de Produtos</h1>
+
+        <!-- Botão para voltar à lista de produtos -->
+        <div class="mb-4">
+            <a href="/" class="btn btn-secondary">Voltar para a Lista de Produtos</a>
+        </div>
+
+        <!-- Formulário para Adicionar Produtos -->
+        <h2 class="my-4">Adicionar Produto</h2>
+        <form action="/gerenciar_produtos" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome do Produto</label>
+                <input type="text" class="form-control" name="nome" placeholder="Nome do Produto" required>
+            </div>
+            <div class="form-group">
+                <label for="preco">Preço de Venda</label>
+                <input type="number" class="form-control" name="preco" placeholder="Preço" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="estoque">Estoque</label>
+                <input type="number" class="form-control" name="estoque" placeholder="Estoque" required>
+            </div>
+            <div class="form-group">
+                <label for="custo">Custo do Produto</label>
+                <input type="number" class="form-control" name="custo" placeholder="Custo do Produto" step="0.01" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Adicionar Produto</button>
+        </form>
+
+        <!-- Tabela de Produtos Cadastrados -->
+        <h2 class="my-4">Produtos Cadastrados</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço de Venda</th>
+                    <th>Estoque</th>
+                    <th>Custo do Produto</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos %}
+                <tr>
+                    <td>{{ produto[1] }}</td>
+                    <td>R$ {{ produto[2] }}</td>
+                    <td>{{ produto[3] }}</td>
+                    <td>R$ {{ produto[4] }}</td>
+                    <td>
+                        <a href="/editar_produto/{{ produto[0] }}" class="btn btn-warning">Editar</a>
+                        <a href="/remover_produto/{{ produto[0] }}" class="btn btn-danger">Remover</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
